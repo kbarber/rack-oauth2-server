@@ -245,7 +245,7 @@ module Rack
         # 5.  Accessing a Protected Resource
         if request.authorization
           # 5.1.1.  The Authorization Request Header Field
-          token = request.credentials if request.oauth?
+          token = request.credentials if request.oauth? || request.bearer?
         elsif options.param_authentication && !request.GET["oauth_verifier"] # Ignore OAuth 1.0 callbacks
           # 5.1.2.  URI Query Parameter
           # 5.1.3.  Form-Encoded Body Parameter
@@ -561,6 +561,11 @@ module Rack
           authorization[/^oauth/i] if authorization
         end
 
+        # True if authentication scheme is Bearer.
+        def bearer?
+          authorization[/^bearer/i] if authorization
+        end
+
         # True if authentication scheme is Basic.
         def basic?
           authorization[/^basic/i] if authorization
@@ -570,7 +575,8 @@ module Rack
         # token.
         def credentials
           basic? ? authorization.gsub(/\n/, "").split[1].unpack("m*").first.split(/:/, 2) :
-          oauth? ? authorization.gsub(/\n/, "").split[1] : nil
+          oauth? ? authorization.gsub(/\n/, "").split[1] :
+          bearer? ? authorization.gsub(/\n/, "").split[1] : nil
         end
       end
 
