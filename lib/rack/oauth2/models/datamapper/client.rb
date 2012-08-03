@@ -6,7 +6,7 @@ module Rack
         include DataMapper::Resource
 
         property :id,             String,   :key => true, :length => 72, :default => proc { Server.secure_random }
-        property :secret,         String,   :required => true, :length => 72, :default => proc { Server.secure_random }
+        property :secret,         String,   :required => false, :length => 72, :default => proc { Server.secure_random }
         property :display_name,   String
         property :link,           URI
         property :image_url,      URI
