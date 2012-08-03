@@ -482,7 +482,7 @@ module Rack
         end
         raise InvalidClientError if client.revoked
         return client
-      rescue BSON::InvalidObjectId
+      rescue
         raise InvalidClientError
       end
 
