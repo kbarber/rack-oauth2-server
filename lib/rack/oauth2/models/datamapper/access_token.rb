@@ -101,15 +101,15 @@ module Rack
         def access!
           today = (Time.now.to_i / 3600) * 3600
           if last_access.nil? || last_access < today
-            self.last_access = today
             self.prev_access = last_access
+            self.last_access = Time.at(today)
             self.save
           end
         end
 
         # Revokes this access token.
         def revoke!
-          self.revoked = Time.now.to_i
+          self.revoked = Time.at(Time.now.to_i)
           self.save
         end
       end
