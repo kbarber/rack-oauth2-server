@@ -28,7 +28,7 @@ module Rack
           end
         end
 
-        property :identifier,  Text, :key => true
+        property :identifier,  Text, :key => true, :index => true
         property :hmac_secret, Text
         property :public_key,  Text
         property :notes,       Text
