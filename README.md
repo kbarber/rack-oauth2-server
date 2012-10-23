@@ -239,11 +239,11 @@ The view would look something like this:
 
 ### Step 4: Protect Your Path
 
-Rack::OAuth2::Server intercepts all incoming requests and looks for an Authorization header that uses `OAuth`
+Rack::OAuth2::Server intercepts all incoming requests and looks for an Authorization header that uses `Bearer`
 authentication scheme, like so:
 
 ```
-Authorization: OAuth e57807eb99f8c29f60a27a75a80fec6e
+Authorization: Bearer e57807eb99f8c29f60a27a75a80fec6e
 ```
 
 It can also support the `oauth_token` query parameter or form field, if you set `param_authentication` to true. This
@@ -569,7 +569,7 @@ Grab the `access_token` value and use it. The access token is good until you del
 request using the access token:
 
 ```
-$ curl -i http://localhost:3000/api/read -H "Authorization: OAuth e57807eb99f8c29f60a27a75a80fec6e"
+$ curl -i http://localhost:3000/api/read -H "Authorization: Bearer e57807eb99f8c29f60a27a75a80fec6e"
 ```
 
 Although not recommended, you can also pass the token as a query parameter, or when making POST request, as a form
@@ -587,7 +587,7 @@ Here's a neat trick. You can create a `.curlrc` file and load it using the `-K` 
 
 ```
 $ cat .curlrc
-header = "Authorization: OAuth e57807eb99f8c29f60a27a75a80fec6e"
+header = "Authorization: Bearer e57807eb99f8c29f60a27a75a80fec6e"
 $ curl -i http://localhost:3000/api/read -K .curlrc
 ```
 
