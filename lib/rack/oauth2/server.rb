@@ -43,6 +43,8 @@ module Rack
         # existing client registration (in combination wih secret)
         # @option args [String] :secret Client secret. Use this to update
         # existing client registration.
+        # @option args [Boolean] :confidential true if the Client is
+        # confidential. false if client is public.
         # @option args [String] :display_name Name to show when authorizing
         # access (e.g.  "My Awesome Application")
         # @option args [String] link Link to client application's Web site
@@ -55,12 +57,12 @@ module Rack
         # @option args [Array] notes Free form text, for internal use.
         #
         # @example Registering new client application
-        #   Server.register :display_name=>"My Application",
+        #   Server.register :confidential=>true, :display_name=>"My Application",
         #     :link=>"http://example.com", :scope=>%w{read write},
         #     :redirect_uri=>"http://example.com/oauth/callback"
         # @example Migration using configuration file
         #   config = YAML.load_file(Rails.root + "config/oauth.yml")
-        #   Server.register config["id"], config["secret"],
+        #   Server.register config["id"], config["secret"], config["confidential"],
         #     :display_name=>"My  Application", :link=>"http://example.com",
         #     :scope=>config["scope"],
         #     :redirect_uri=>"http://example.com/oauth/callback"
