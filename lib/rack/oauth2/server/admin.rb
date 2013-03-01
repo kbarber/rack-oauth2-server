@@ -244,13 +244,19 @@ module Rack
           end
 
           def client_as_json(client, with_stats = false)
-            { "id"=>client.id.to_s, "secret"=>client.secret, :redirectUri=>client.redirect_uri,
-              :displayName=>client.display_name, :link=>client.link, :imageUrl=>client.image_url,
+            { "id"=>client.id.to_s,
+              "secret"=>client.secret,
+              :confidential=>client.confidential,
+              :redirectUri=>client.redirect_uri,
+              :displayName=>client.display_name,
+              :link=>client.link,
+              :imageUrl=>client.image_url,
               :notes=>client.notes, :scope=>client.scope,
               :url=>"#{request.script_name}/api/client/#{client.id}",
               :revoke=>"#{request.script_name}/api/client/#{client.id}/revoke",
               :history=>"#{request.script_name}/api/client/#{client.id}/history",
-              :created=>client.created_at, :revoked=>client.revoked }
+              :created=>client.created_at,
+              :revoked=>client.revoked }
           end
 
           def token_as_json(token)

@@ -7,6 +7,7 @@ module Rack
 
         property :id,             String,   :key => true, :length => 72, :default => proc { Server.secure_random }
         property :secret,         String,   :required => false, :length => 72, :default => proc { Server.secure_random }
+        property :confidential,   Boolean,  :default => false
         property :display_name,   String
         property :link,           URI
         property :image_url,      URI
